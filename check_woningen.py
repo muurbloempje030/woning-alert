@@ -8,7 +8,7 @@ URL = "https://your-house.nl/woning-huren"
 
 EMAIL_FROM = os.environ["EMAIL_FROM"]
 EMAIL_PASS = os.environ["EMAIL_PASS"]
-EMAIL_TO = os.environ["EMAIL_TO"]
+EMAIL_TO = "katinka_blom@hotmail.com"
 
 r = requests.get(URL)
 soup = BeautifulSoup(r.text, "html.parser")
@@ -27,10 +27,12 @@ if links:
         msg += l + "\n"
 
     message = MIMEText(msg)
-    message["Subject"] = "Nieuwe woningen alert"
+    message["Subject"] = "Nieuwe woning op Your-House"
     message["From"] = EMAIL_FROM
     message["To"] = EMAIL_TO
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+    with smtplib.SMTP("smtp.office365.com", 587) as server:
+        server.starttls()
         server.login(EMAIL_FROM, EMAIL_PASS)
         server.send_message(message)
+
