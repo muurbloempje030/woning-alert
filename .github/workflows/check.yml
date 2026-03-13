@@ -1,28 +1,21 @@
 name: Check woningen
 
-# Dit zorgt ervoor dat de workflow elke 5 minuten draait
 on:
   schedule:
-    - cron: "*/5 * * * *"  
-  workflow_dispatch:  # Hierdoor kun je hem ook handmatig starten
+    - cron: "*/5 * * * *"  # elke 5 minuten
+  workflow_dispatch:       # handmatig starten
 
 jobs:
   run:
     runs-on: ubuntu-latest
-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # optioneel, voorkomt Node.js 20 waarschuwing
     steps:
-      # Checkout van je repository code
       - uses: actions/checkout@v3
-
-      # Installeer Python
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-
-      # Installeer de vereiste Python packages
       - run: pip install -r requirements.txt
-
-      # Voer het Python script uit
       - run: python check_woningen.py
         env:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
