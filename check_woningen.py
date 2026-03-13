@@ -35,4 +35,3 @@ if links:
         server.starttls()
         server.login(EMAIL_FROM, EMAIL_PASS)
         server.send_message(message)
-
