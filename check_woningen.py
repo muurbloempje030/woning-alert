@@ -20,7 +20,7 @@ try:
         server.starttls()  # versleuteling inschakelen
         server.login(EMAIL_FROM, EMAIL_PASS)
         server.send_message(message)
-    print("Testmail succesvol verzonden!")
+    print("E-mail succesvol verzonden!")
 except Exception as e:
     print("Fout bij verzenden van e-mail:", e)
     raise
