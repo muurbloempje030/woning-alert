@@ -1,22 +1,12 @@
-name: Check woningen
-
-on:
-  schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch:
-
-jobs:
-  run:
+name: Check woningejobs:
+  send_test_mail:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt  # alleen de packages in requirements.txt
-      - run: python check_woningen.py
+      - run: python check_woningen_test.py
         env:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
